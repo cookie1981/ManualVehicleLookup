@@ -6,7 +6,7 @@ COPY . /app
 
 EXPOSE 5000
 
-RUN dotnet-build.sh
+RUN dotnet-build-and-test.sh
 #RUN dotnet run -p ./project.json
 
 #VOLUME /build/binaries
