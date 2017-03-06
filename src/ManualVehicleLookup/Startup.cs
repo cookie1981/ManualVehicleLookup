@@ -1,8 +1,8 @@
-﻿//using ManualVehicleLookup.Models;
-
-using ManualVehicleLookup.Models;
+﻿using ManualVehicleLookup.Models;
+using ManualVehicleLookup.Models.MSSQLServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,7 +31,15 @@ namespace ManualVehicleLookup
             // Add framework services.
             services.AddMvc();
 
-            services.AddSingleton<IManufacturerRepository, MockManufacturerRepository>();
+
+            //TODO:
+            //conditionally load dependancies, based on configuration
+            //either, MockRepos, Mongo, or SQL Server
+
+            const string connection = @"Server=192.168.99.100;Database=AbiVehicleData;Trusted_Connection=True;";
+            services.AddDbContext<Models.MSSQLServer.Vehicle>(options => options.UseSqlServer(connection));
+
+            services.AddSingleton<IManufacturerRepository, MongoManufacturerRepository>();
             services.AddSingleton<IManufacturerModelRepository, MockManufacturerModelRepository>();
         }
 

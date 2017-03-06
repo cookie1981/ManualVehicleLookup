@@ -4,6 +4,7 @@ namespace ManualVehicleLookup.Models
 {
     public interface IManufacturerRepository
     {
-        List<string> GetAllManufactureres();
+        List<string> GetAllManufacturers();
+        List<string> GetAllManufacturers(string productClass);
     }
 }
